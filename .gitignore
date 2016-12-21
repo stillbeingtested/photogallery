@@ -1,0 +1,7 @@
+# IntelliJ IDEA
+*.iml
+.idea/
+
+
+__pycache__/
+*.py[cod]
