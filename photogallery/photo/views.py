@@ -3,14 +3,13 @@ from urllib.parse import urlencode
 from django.template.defaulttags import register
 from django.views.generic import ListView
 
-from .models import Photo
+from .models import Photo, Tag
 
 
 @register.simple_tag(takes_context=True)
 def url_replace(context, **kwargs):
     query = context['request'].GET.dict()
     query.update(kwargs)
-    print('within url_replace', urlencode(query))
     return urlencode(query)
 
 
@@ -20,7 +19,8 @@ class PhotoView(ListView):
     paginate_by = 20
 
     def get_queryset(self):
-        tag_filtering = self.request.GET.get('tags', [])
+        tags_string = self.request.GET.get('tags', '')
+        tags_filtering = tags_string.split(',') if tags_string else []
         date_order = self.request.GET.get('date', 'desc')
         like_order = self.request.GET.get('likes', 'desc')
         orderings = []
@@ -32,8 +32,12 @@ class PhotoView(ListView):
             like_db_ordering = 'like_count' if like_order == 'desc' else '-like_count'
             orderings.append(like_db_ordering)
 
-        queryset = Photo.objects.filter(blocked_by_tag=False)\
-            .order_by(*orderings)
+        queryset = Photo.objects.filter(blocked_by_tag=False)
+        if tags_filtering:
+            tags = Tag.objects.filter(name__in=tags_filtering)
+            queryset = queryset.filter(tags__in=tags)
+
+        queryset.order_by(*orderings)
         return queryset
 
     def get_context_data(self, **kwargs):
