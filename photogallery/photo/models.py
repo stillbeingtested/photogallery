@@ -13,7 +13,7 @@ class Tag(models.Model):
 class Photo(models.Model):
     user = models.ForeignKey(User, null=False, blank=False, related_name='photos')
     href = models.URLField()
-    created_date = models.DateField()
+    created_date = models.DateTimeField()
     tags = models.ManyToManyField(Tag, blank=True, related_name='photos')
     blocked_by_tag = models.BooleanField(default=False)
 

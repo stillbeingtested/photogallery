@@ -16,6 +16,9 @@ Including another URLconf
 from django.conf.urls import url
 from django.contrib import admin
 
+from photo.views import PhotoView
+
 urlpatterns = [
+    url(r'^photos/', view=PhotoView.as_view(), name='photos'),
     url(r'^admin/', admin.site.urls),
 ]

@@ -55,7 +55,7 @@ ROOT_URLCONF = 'photogallery.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': ['templates'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -77,7 +77,7 @@ WSGI_APPLICATION = 'photogallery.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'photogallery',
+        'NAME': 'photogallery_staging',
         'USER': 'photogallery',
         'PASSWORD': 'photogallery',
         'HOST': 'localhost',
