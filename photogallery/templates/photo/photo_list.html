@@ -15,7 +15,7 @@
             <div class="photo_list">
                 {%for photo in object_list %}
                 <div class="photoimage">
-                    <img src="none" width="200" height="200" title="{{photo.href}}"/>
+                    <img src="/none/none" width="200" height="200" title="{{photo.href}}"/>
                     <div>date: {{photo.created_date | date:'d-m-Y'}}
                         {{photo.created_date | time:'H:i'}}</div>
                     <div>likes: {{photo.likes.count}}</div>
@@ -33,13 +33,29 @@
             <div class="paging"></div>
         </div>
         <div class="filtering">
-            <form action="" method="post">
+            <form action="{% url 'photos'%}" method="get">
                 <label>Tags</label>
                 <input name="tag1"/>
                 <input name="tag1"/>
                 <input name="tag1"/>
                 <input name="tag1"/>
                 <input name="tag1"/>
+                <br/>
+
+                <label>Sort by likes</label>
+                <select name="likes">
+                    <option value="asc">ascending</option>
+                    <option value="desc">descending</option>
+                </select>
+                <br/>
+
+                <label>Sort by date</label>
+                <select name="date">
+                    <option value="asc">ascending</option>
+                    <option value="desc">descending</option>
+                </select>
+                <br/>
+
                 <input type="submit" value="Submit">
             </form>
         </div>
