@@ -13,7 +13,7 @@ class PhotoAdmin(admin.ModelAdmin):
     class Meta:
         model = Photo
 
-    list_display = ('created_date', 'href', 'blocked_by_tag')
+    list_display = ('created_date', 'href', 'blocked_by_tag', 'like_count')
 
 admin.site.register(User)
 admin.site.register(Tag, TagAdmin)

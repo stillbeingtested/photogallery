@@ -18,21 +18,6 @@ class Photo(models.Model):
     blocked_by_tag = models.BooleanField(default=False)
     like_count = models.PositiveIntegerField(default=0)
 
-    def add_tag(self, tag):
-        if tag.is_blocking:
-            self.blocked_by_tag = True
-
-        self.tags.add(tag)
-        self.save()
-
-    def remove_tag(self, tag):
-        if tag.is_blocking:
-            # check if other tags are blocking
-            # adjust the flag
-            pass
-        self.tags.remove(tag)
-        self.save()
-
 
 class Like(models.Model):
     photo = models.ForeignKey(Photo, null=False, blank=False, related_name='likes')
