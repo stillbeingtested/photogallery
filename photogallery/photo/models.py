@@ -16,6 +16,7 @@ class Photo(models.Model):
     created_date = models.DateTimeField()
     tags = models.ManyToManyField(Tag, blank=True, related_name='photos')
     blocked_by_tag = models.BooleanField(default=False)
+    like_count = models.PositiveIntegerField(default=0)
 
     def add_tag(self, tag):
         if tag.is_blocking:

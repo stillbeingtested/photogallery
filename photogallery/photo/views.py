@@ -11,22 +11,24 @@ class PhotoView(ListView):
     def get_queryset(self):
         tag_filtering = self.request.GET.get('tags', [])
         date_order = self.request.GET.get('date', 'desc')
-        like_order = self.request.GET.get('likes')
-        queryset = Photo.objects
+        like_order = self.request.GET.get('likes', 'desc')
+        orderings = []
         if date_order is not None:
             date_db_ordering = 'created_date' if date_order == 'asc' else '-created_date'
-            queryset = queryset.order_by(date_db_ordering)
+            orderings.append(date_db_ordering)
 
-        # if like_order is not None:
-        #     like_db_ordering = 'likes'
-            # pass
-            # queryset.order_by(order)
+        if like_order is not None:
+            like_db_ordering = 'like_count' if like_order == 'desc' else '-like_count'
+            orderings.append(like_db_ordering)
 
+        queryset = Photo.objects.filter(blocked_by_tag=False)\
+            .order_by(*orderings)
         return queryset
+
 
     def get_context_data(self, **kwargs):
         context = super(PhotoView, self).get_context_data(**kwargs)
         context['tags'] = self.request.GET.get('tags', [])
         context['date'] = self.request.GET.get('date', 'desc')
-        context['likes'] = self.request.GET.get('likes')
+        context['likes'] = self.request.GET.get('likes', 'desc')
         return context

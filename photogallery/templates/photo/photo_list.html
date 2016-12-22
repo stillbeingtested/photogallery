@@ -44,15 +44,15 @@
 
                 <label>Sort by likes</label>
                 <select name="likes">
-                    <option value="asc">ascending</option>
-                    <option value="desc">descending</option>
+                    <option value="asc" {% if likes == 'asc'%} selected="selected" {% endif %}>ascending</option>
+                    <option value="desc" {% if likes == 'desc'%} selected="selected" {% endif %}>descending</option>
                 </select>
                 <br/>
 
                 <label>Sort by date</label>
                 <select name="date">
-                    <option value="asc">ascending</option>
-                    <option value="desc">descending</option>
+                    <option value="asc" {% if date == 'asc'%} selected="selected" {% endif %}>ascending</option>
+                    <option value="desc" {% if date == 'desc'%} selected="selected" {% endif %}>descending</option>
                 </select>
                 <br/>
 
