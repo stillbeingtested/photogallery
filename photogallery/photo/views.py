@@ -1,6 +1,17 @@
+from urllib.parse import urlencode
+
+from django.template.defaulttags import register
 from django.views.generic import ListView
 
 from .models import Photo
+
+
+@register.simple_tag(takes_context=True)
+def url_replace(context, **kwargs):
+    query = context['request'].GET.dict()
+    query.update(kwargs)
+    print('within url_replace', urlencode(query))
+    return urlencode(query)
 
 
 class PhotoView(ListView):
@@ -24,7 +35,6 @@ class PhotoView(ListView):
         queryset = Photo.objects.filter(blocked_by_tag=False)\
             .order_by(*orderings)
         return queryset
-
 
     def get_context_data(self, **kwargs):
         context = super(PhotoView, self).get_context_data(**kwargs)

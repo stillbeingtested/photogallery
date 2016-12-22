@@ -30,7 +30,17 @@
                 <span>No photos yet</span>
                 {%endfor%}
             </div>
-            <div class="paging"></div>
+            <div class="paging">
+                {% if is_paginated%}
+                {% if page_obj.has_previous%}
+                <span><a href="?{% url_replace page=page_obj.previous_page_number %}">previous</a></span>
+                {% endif %}
+
+                {% if page_obj.has_next%}
+                <span><a href="?{% url_replace page=page_obj.next_page_number %}">next</a></span>
+                {% endif %}
+                {% endif %}
+            </div>
         </div>
         <div class="filtering">
             <form action="{% url 'photos'%}" method="get">
